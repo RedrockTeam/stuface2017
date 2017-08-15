@@ -37,6 +37,12 @@ ajax({
 })
 //消息显示
 message.addEventListener('click',function() {
+    if (!/^2017/.test(stuId)) {
+        cover.style.display = 'block';
+        success.style.display = 'block';
+        success.children[1].innerHTML = '你不是新生哦';
+        return;
+    }
     ajax({
         method: 'get',
         url:  urlPrefix + '/getStatus/stuId/'+stuId,
@@ -225,7 +231,7 @@ $('.search_button').addEventListener('click',function() {
                 list.innerHTML = '';
                 var liParent = document.createElement('li');
                 liParent.className = 'show';
-                var li = '<span class="rank">No'+ res.data.id +'</span><img class="person" src="'+ publicDir +'/uploads/'+res.data.pic+'" alt=""><p class="other"><img class="zan" name="'+ res.data.uid  +'" src="' +  + '/static/stufacemo/imgs/zan1.png" alt=""><span class="zan-num">'+ res.data.vote +'</span><img class="more" src="' + publicDir + '/static/stufacemo/imgs/more.png" alt="0"></p>';
+                var li = '<span class="rank">No'+ res.data.id +'</span><img class="person" src="'+ publicDir +'/uploads/'+res.data.pic+'" alt=""><p class="other"><img class="zan" name="'+ res.data.uid  +'" src="' + publicDir + '/static/stufacemo/imgs/zan1.png" alt=""><span class="zan-num">'+ res.data.vote +'</span><img class="more" src="' + publicDir + '/static/stufacemo/imgs/more.png" alt="0"></p>';
                 liParent.innerHTML = li;
                 list.appendChild(liParent);
                 data_arr = new Array(res.data);
@@ -241,7 +247,7 @@ function show_pic(res) {
     for(var i = 0; i < res.data.length; i++) {
         var liParent = document.createElement('li');
         liParent.className = 'show';
-        var li = '<span class="rank">No'+ res.data[i].id +'</span><div><img class="person" src="'+ publicDir +'/uploads/' +res.data[i].pic+'" alt="'+ i +'" big_pic=' + res.data[i].big_pic + ' id=' + res.data[i].id + ' uid=' + res.data[i].uid +'></div><p class="other"><img class="zan" name="'+ res.data[i].uid  +'" src="' + publicDir + '/static/stufacemo/imgs/zan1.png" alt=""><span class="zan-num">'+ res.data[i].vote +'</span><img class="more" src="' + publicDir + '/static/stufacemo/imgs/more.png" alt="'+ i +'"></p>';
+        var li = '<span class="rank">No'+ res.data[i].id +'</span><div><img class="person" src="'+ publicDir +'/uploads/' +res.data[i].pic+'" alt="'+ res.data[i].vote +'" big_pic=' + res.data[i].big_pic + ' id=' + res.data[i].id + ' uid=' + res.data[i].uid +'></div><p class="other"><img class="zan" name="'+ res.data[i].uid  +'" src="' + publicDir + '/static/stufacemo/imgs/zan1.png" alt=""><span class="zan-num">'+ res.data[i].vote +'</span><img class="more" src="' + publicDir + '/static/stufacemo/imgs/more.png" alt="'+ i +'"></p>';
         liParent.innerHTML = li;
         list.appendChild(liParent);
     }

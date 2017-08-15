@@ -137,7 +137,7 @@ allBtnUpload.forEach( function(element, index) {
         if (!sessionStorage.stuid) {
             return showModel('你还未登录哦');
         }
-        if (!/2017/.test(sessionStorage.stuid)) {
+        if (!/^2017/.test(sessionStorage.stuid)) {
             return showModel('你不是新生哦');
         }
         
