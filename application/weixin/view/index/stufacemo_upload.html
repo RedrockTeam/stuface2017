@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="__ROOT__/public/static/stufacemo/js/flexible.js"></script>
+	<link rel="stylesheet" type="text/css" href="__ROOT__/public/static/stufacemo/styles/wx_upload.css">
+    <title>上传照片</title>
+</head>
+<body>
+    <div class="container">
+        <div class="cover"><p>上传中</p></div>
+        <div class="upload">
+            <div class="add">
+                <img class="icon" src="__ROOT__/public/static/stufacemo/imgs/upload_photo.png" alt="">
+                <form style="display: none;" class="p_form" method="post" action="/stuface/index.php?m=home&c=index&a=uploadpic" enctype="multipart/form-data">
+                    <input type="file" class="add-in-file" name="photo">
+                    <input type="submit">
+                </form>
+            </div>
+            <!-- <input type="text" class="phone" placeholder="请输入您的手机号"> -->
+            <p class="care">* 图片大小不能超过5M～</p>
+        </div>
+        <div class="button"><img src="__ROOT__/public/static/stufacemo/imgs/upload_button.png" alt=""></div>
+    </div>
+    <script>//    Console.log(__ROOT__)</script>
+    <script src="__ROOT__/public/static/stufacemo/js/wtf.js"></script>
+    <script src="__ROOT__/public/static/stufacemo/js/upload.js"></script>
+</body>
+</html>

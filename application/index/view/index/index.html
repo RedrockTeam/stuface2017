@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>新生笑脸</title>
+        <link rel="stylesheet" href="__ROOT__/public/static/stuface/css/index.css">
+        <script>
+            var ROOT = '__ROOT__' +  '/public/'
+        </script>
+    </head>
+    <body>
+        <div class="model-view" style="display: none;">
+            <div class="model">
+                <div class="model-con">
+                    <span class="login-close"></span>
+                    <div class="model-text">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="login-view" style="display: none;">
+            <div class="login-form">
+                <div class="form-main">
+                    <span class="login-close"></span>
+                    <div>
+                        <input type="text" placeholder="请输入学号" name="stuid" class="stuid">
+                        <input type="password" placeholder="请输入密码(身份证后六位)" name="password" class="password">
+                        <div class="login-btn">登录</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info-view" style="display: none;">
+            <div class="login-form">
+                <div class="form-main info-main">
+                    <span class="login-close info-close"></span>
+                    <div>
+                        <h2>我的消息</h2>
+                        <p>亲: </p>
+                        <p class="message"></p>
+                        <div class="btn-uplaod again-upload">
+                            <!-- <input type="file"> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="big-pic-view" style="display: none;">
+            <div class="big-pic-container">
+                <div class="big-pic-content">
+                    <img src="" alt="" class="big-pic-img">
+                    <div class="big-pic-info">
+                        <div class="big-pic-id-info" id="big-pic-id-info">编号
+                            <span class="big-pic-id">0</span>
+                        </div>
+                        <div class="big-pic-love" id="big-pic-love">
+                            <div class="heart-shape big-pic-vote" id="big-pic-vote"></div>
+                            <div class="loved-count big-pic-count" id="big-pic-count">20</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="upload-view" style="display: none;">
+            <div class="login-form upload-container">
+                <div class="form-main upload-content">
+                    <div class="btn-to-upload">
+                        <input type="file" class="rechoose-img">
+                    </div>
+                    <div class="upload-img-div">
+                        <img src="__ROOT__/public/static/stuface/images/upload-camera.png" alt="" class="upload-img-forsee">
+                        <input type="file">
+                    </div>
+                    <div class="upload-btn">
+                        <!-- <input type="file" id="upload-btn-input"> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header>
+            <div class="header-content">
+                <div class="cqupt">
+                    <span>
+                        <img src="__ROOT__/public/static/stuface/images/top-cqupt.png" alt="" class="cqupt-icon">
+                    </span>
+                    <span>
+                        <img src="__ROOT__/public/static/stuface/images/top-icon.png" alt="" class="cqupt-text">
+                    </span>
+                </div>
+                <ul class="top-title">
+                    <li class="title-before">
+                        <a target="_blank" href="http://hongyan.cqupt.edu.cn">红岩网校</a>
+                    </li>
+                    <li class="title-before">
+                        <a href="##" class="welcome">2017迎新网</a>
+                    </li>
+                    <li class="title-before">
+                        <a target="_blank" href="http://hongyan.cqupt.edu.cn/aboutus">关于我们</a>
+                    </li>
+                    <li class="title-before log-out">注销</li>
+                    <li class="title-last login-in"></li>
+                </ul>
+            </div>
+        </header>
+        <div class="main-container">
+            <div class="main-title">
+                <div class="btn-uplaod laozibuzhidaoqushenmemingzile">
+                    <!-- <input type="file" > -->
+                </div>
+            </div>
+            <div class="main-conetnt">
+                <div class="activity">
+                    <span class="needle"></span>
+                    <div class="activitv-main">
+                        <div class="activity-title">
+                            <img src="__ROOT__/public/static/stuface/images/activity-title.png" alt="">
+                        </div>
+                        <div class="activity-content">
+                            <div class="ac-content-left">
+                                <div class="code-img">
+                                    <img src="__ROOT__/public/static/stuface/images/code.png" alt="">
+                                </div>
+                                <div class="code-text">
+                                    <img src="__ROOT__/public/static/stuface/images/code-text.png" alt="">
+                                </div>
+                            </div>
+                            <div class="ac-content-right">
+                                <div class="details first-detail">
+                                    <h4>活动时间</h4>
+                                    <p>本次线上参与活动时间为 <span class="color-red"> 即日起 - 2017年9月8日12：00</span></p>
+                                </div>
+                                <div class="details two-detail">
+                                    <div class="details-left">
+                                        <h4>活动主题</h4>
+                                        <p>新生笑脸征集—晒晒通知书</p>
+                                    </div>
+                                    <div class="details-right">
+                                        <h4>活动对象</h4>
+                                        <p><span class="color-red">2017</span>级所有小鲜肉</p>
+                                    </div>
+                                </div>
+                                <div class="details">
+                                    <h4>参与方式</h4>
+                                    <p>上传认为最有特色或创意录取通知书的合照(每人限一张)参与活动</p>
+                                </div>
+                                <div class="details last-detail">
+                                    <h4>照片内容</h4>
+                                    <p>不限形式、照片可以是新生，特色景物，小物件和录取通知书的合照。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity show">
+                    <span class="needle"></span>
+                    <div class="activitv-main show-main">
+                        <div class="activity-title">
+                            <img src="__ROOT__/public/static/stuface/images/smile-title.png" alt="">
+                        </div>
+                        <div class="activity-content show-content">
+                            <div class="inputs">
+                                <div class="show-style">
+                                    <p class="comp"> 
+                                        <em>综合</em>
+                                        <span class="arrow-down"></span>
+                                    </p>
+                                    <p class="comp-order">综合</p>
+                                    <p class="hot">人气</p>
+                                    <p class="new">最新</p>
+                                </div>
+                                <div class="sex">
+                                    <p class="all-sex"> 
+                                        <em>性别</em>
+                                        <span class="arrow-down"></span>
+                                    </p>
+                                    <p class="a-order">性别</p>
+                                    <p class="man">男</p>
+                                    <p class="woman">女</p>
+                                </div>
+                                <div class="search">
+                                    <input type="text" placeholder="请输入编号" class="input-num">
+                                    <b></b>
+                                </div>
+                            </div>
+                            <div class="show-details">
+                            </div>
+                            <div class="show-page">
+                                <div class="hand-left">
+                                    <img src="__ROOT__/public/static/stuface/images/hand-left.png" alt="">
+                                </div>
+                                <div class="page-con">
+                                    <ul class="page-div"></ul>
+                                </div>
+                                <div class="hand-right">
+                                    <img src="__ROOT__/public/static/stuface/images/hand-right.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <p>
+                    <a href="">关于红岩网校</a>
+                    |
+                    <a href="">网站地图</a>
+                    |
+                    <a href="">指出错误</a>
+                    |
+                    <a href="">管理入口</a>
+                </p>
+                <p>本网站由红岩网校工作站负责开发，管理，不经红岩网校委员会书面同意，不得进行转载</p>
+                <p>地址：重庆市南岸区崇文路2号（重庆邮电大学内） 400065 E-mail :redrock@cqupt.edu.cn (023-62461084)</p>
+            </div>
+        </div>
+        <script src="__ROOT__/public/static/stuface/js/main.js"></script>
+    </body>
+</html>

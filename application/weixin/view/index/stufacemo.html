@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="__ROOT__/public/static/stufacemo/js/flexible.js"></script>
+	<link rel="stylesheet" type="text/css" href="__ROOT__/public/static/stufacemo/styles/wx_index.css">
+    <link rel="stylesheet" type="text/css" href="__ROOT__/public/static/stufacemo/styles/icon/iconfont.css">
+    <title>新生笑脸</title>
+    <script>
+        localStorage.stuId = {$student}; //模板渲染写成
+        localStorage.stuPassword = {$idnum};
+        var ROOT = '__ROOT__';
+        //+ '/public/'
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="cover">
+            <div class="success">
+                <div class="close"><img src="__ROOT__/public/static/stufacemo/imgs/close.png" alt=""></div>
+                <p class="message_success"></p>
+                <div class="absolute">
+                    <h3>我的消息</h3>
+                    <p>亲：</p>
+                </div>
+                <a href="stufacemo_upload.html?stuId={$student}"><img class="second" src="__ROOT__/public/static/stufacemo/imgs/second_upload.png" alt=""></a>
+            </div>
+        </div>
+        <div class="con">
+            <div class="top">
+                <img class="message" src="__ROOT__/public/static/stufacemo/imgs/message.png" alt="">
+                <img src="__ROOT__/public/static/stufacemo/imgs/banner.png" class="background" alt="">
+                <a href="stufacemo_upload.html?stuId={$student}"><img src="__ROOT__/public/static/stufacemo/imgs/button.png" class="button" alt="button"></a>
+            </div>
+            <div class="center">
+                <div class="title"><img src="__ROOT__/public/static/stufacemo/imgs/title1.png" alt=""></div>
+                <div class="introduce">
+                    <p>1.活动时间：本次线上参与活动时间为<span>即日起 - 2017年9月8日12：00</span></p>
+                    <p>2.活动主题：新生笑脸征集—晒晒通知书</p>
+                    <p>3.活动对象：<span>2017</span>级所有小鲜肉</p>
+                    <p>4.活动形式：不限形式、照片可以是新生，特色景物，小物件和录取通知书的合照</p>
+                </div>            
+            </div>
+            <div class="bottom">
+                <div class="title"><img src="__ROOT__/public/static/stufacemo/imgs/title2.png" alt=""></div>
+                <div class="content">
+                    <div class="search">
+                        <input type="text" class="input" placeholder="请输入编号">
+                        <button class="button search_button"><img src="__ROOT__/public/static/stufacemo/imgs/search.png" alt=""></button>
+                    </div>
+                    <ul class="choose">
+                        <li class="first"><span>综合排序</span><i class="iconfont icon-xiala1" style="font-size:34px"></i></li>
+                        <div class="choose_two">
+                            <li name="comp"><span>综合排序</span></li>
+                            <li name="hot"><span>人气从高到低</span></li>
+                            <li name="new"><span>最新发布</span></li>
+                        </div>
+                    </ul>
+                    <ul class="list">
+                    </ul>
+                    <ul class="page">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="__ROOT__/public/static/stufacemo/js/wtf.js"></script>
+    <script src="__ROOT__/public/static/stufacemo/js/index.js"></script>
+</body>
+</html>

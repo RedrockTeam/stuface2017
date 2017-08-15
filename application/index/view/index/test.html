@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <form action="./uploadImage" enctype="multipart/form-data" method="post">
+        <input type="file" id="file" name="image" /> <br> 
+        <input type="" value="2015211812" name="stuId">
+        <input type="submit" id="sub" value="上传" /> 
+    </form>
+
+<!--     <script type="text/javascript">
+        function Ajax (obj) {
+            var request = new XMLHttpRequest,
+                defaults = {
+                    method: "GET",
+                    url: "",
+                    async: true,
+                    success: function () {},
+                    error: function () {},
+                    content: null
+                };
+            for (var key in obj) {
+                defaults[key] = obj[key];
+            }
+            request.onreadystatechange = function () {
+                if (request.readyState === 4 && request.status === 200){
+                    var responseText = JSON.parse(request.responseText);
+                    defaults.success.call(request, responseText);
+                } else {
+                    defaults.error(request);
+                }
+            };
+            request.open(defaults.method, defaults.url, defaults.async);
+            if (defaults.method === 'POST') {
+                if (!~defaults.url.indexOf('uploadImage')) {
+                    request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+                }
+            }
+            request.send(defaults.content);
+        }
+
+        document.querySelector('#sub').addEventListener('click', function (event) {
+            file = document.querySelector('#file').files[0];
+            var form = new FormData();
+            form.append("image", file)
+            form.append("stuId", '2015211878');
+
+            if (file) {
+                Ajax({
+                    method: 'POST',
+                    url: `./uploadImage`,
+                    content: form,
+                    success: function(res) {
+                        console.log(res);
+                    }
+                });
+            }
+        });
+    </script> -->
+
+</body>
+</html>
