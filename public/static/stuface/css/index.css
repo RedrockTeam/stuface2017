@@ -126,7 +126,8 @@ header {
 }
 .header-content {
     position: relative;
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     height: 60px;
     margin: 0 auto;
 }
@@ -171,22 +172,24 @@ header {
 }
 .main-container {
     width: 100%;
-    /*height: 2800px;*/
+    overflow: hidden;
     background-color: #FDF8E7;
 
 }
 .main-conetnt {
-    width: 1046px;
+    width: 100%;
+    max-width: 1046px;
     margin: 0 auto;
     margin-top: -50px;
 
 }
 .main-title {
-    width: 1000px;
+    width: 100%;
+    max-width: 1000px;
     height: 576px;
     background-image: url('../images/banner.png');
     background-position: 18px -50px;
-    background-size: 1000px 576px;
+    background-size: 100% 100%;
     margin: 0 auto;
     padding-top: 372px;
     padding-left: 340px;
@@ -229,7 +232,8 @@ header {
 }
 .activitv-main {
     height: 506px;
-    width: 1046px;
+    width: 100%;
+    max-width: 1046px;
     margin: 0 auto;
     border-radius: 14px;
     background-image: url('../images/triangle1.png');
