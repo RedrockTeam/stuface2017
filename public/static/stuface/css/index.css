@@ -231,7 +231,7 @@ header {
     margin-top: -30px;
 }
 .activitv-main {
-    height: 506px;
+    height: 556px;
     width: 100%;
     max-width: 1046px;
     margin: 0 auto;
@@ -247,12 +247,13 @@ header {
 }
 .activity-content {
     width: 870px;
-    height: 306px;
+    height: 366px;
     margin: 0 auto;
     overflow: hidden;
     margin-top: 88px;
 }
 .ac-content-left {
+    margin-top: 30px;
     width: 248px;
     height: 306px;
     float: left;

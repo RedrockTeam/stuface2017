@@ -5,8 +5,8 @@ var rankToSort = 'comp',
     nowPage = 1;
 
 // 本地 本地只需改这个参数
-//var publicDir = '/redrock/stuface/public'
-//var urlPrefix = `/redrock/stuface/index.php/index/index`
+// var publicDir = '/redrock/stuface/public'
+// var urlPrefix = `/redrock/stuface/index.php/index/index`
 // 线上
 var publicDir = '/stuface2017/public'
 var urlPrefix = `/stuface2017/index.php/index/index`
@@ -21,9 +21,6 @@ function checkLogin() {
 }
 checkLogin();
 
-$('.welcome').addEventListener('click', function() {
-    showModel('迎新网于8月15日正式上线哦');
-})
 function showModel(text) {
     $('.model-text').innerHTML = text;
     $('.model-view').style.display = 'block';
@@ -439,62 +436,37 @@ function allImgView(data) {
     if (!data) 
         return '';
     var imgView = '';
-    if (data.id) {
-        var img = data;
-        imgView = `<ul class="show-details-ul">
-                        <li class="face-line">
-                            <ul>
-                                <li class="show-img">
-                                    <div>
-                                        <img src=${publicDir}/uploads/${data.pic}
-                                            alt=${data.uid}
-                                            data-sex=${data.sex}
-                                            id=${data.id}
-                                            data-bigPic=${img.big_pic} class="show-face">
-                                    </div>
-                                    <div class="face-detail">
-                                        <div class="love">
-                                            <div class="heart-shape"></div>
-                                            <div class="loved-count">${data.vote}</div>
-                                        </div>
-                                        <div class="more-detail"></div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>`;
-    } else {
-        var requestImg = data || [],
-            lineCounts = parseInt(requestImg.length/4);
-        requestImg.forEach( function(img, i) {
-            if (i % 4 === 0) {
-                imgView += `<ul class="show-details-ul">
-                                <li class="face-line">
-                                    <ul>`;
-            }  
-            imgView += `<li class="show-img">
-                            <div>
-                                <img src=${publicDir}/uploads/${img.pic}
-                                    alt=${img.uid}
-                                    data-sex=${img.sex}
-                                    id=${img.id} 
-                                    data-bigPic=${img.big_pic} class="show-face" />
+    
+    var requestImg = data || [],
+        lineCounts = parseInt(requestImg.length/4)+1;
+    requestImg.forEach( function(img, i) {
+        if (i % 4 === 0) {
+            imgView += `<ul class="show-details-ul">
+                            <li class="face-line">
+                                <ul>`;
+        }  
+        imgView += `<li class="show-img">
+                        <div>
+                            <img src=${publicDir}/uploads/${img.pic}
+                                alt=${img.uid}
+                                data-sex=${img.sex}
+                                id=${img.id} 
+                                data-bigPic=${img.big_pic} class="show-face" />
+                        </div>
+                        <div class="face-detail">
+                            <div class="love">
+                                <div class="heart-shape"></div>
+                                <div class="loved-count">${img.vote}</div>
                             </div>
-                            <div class="face-detail">
-                                <div class="love">
-                                    <div class="heart-shape"></div>
-                                    <div class="loved-count">${img.vote}</div>
-                                </div>
-                                <div class="more-detail"></div>
-                            </div>
-                        </li>`
-            if (((i+1) % 4 === 0) || (i>lineCounts*4)) {
-                imgView += `</ul>
-                        </li>
-                    </ul>`;
-            } 
-        });
-    }
+                            <div class="more-detail"></div>
+                        </div>
+                    </li>`
+        if (((i+1) % 4 === 0) || (i>lineCounts*4)) {
+            imgView += `</ul>
+                    </li>
+                </ul>`;
+        } 
+    });
     return imgView;
 }
 function selectRank(ele, value) {

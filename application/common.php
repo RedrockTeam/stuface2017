@@ -60,30 +60,12 @@ use app\index\model\Vote;
     }
 
     // 从API登录
-    // function loginFromApi($stuId, $stuPassword) {
-    //     $url = "http://hongyan.cqupt.edu.cn/stuface2017/index.php/weixin/index/getStuInfo?stunum";
-    //     $postData = [
-    //         'user' => $stuId, 
-    //         'password' => $stuPassword
-    //     ];
-    //     $ch = curl_init();
-    //     curl_setopt($ch, CURLOPT_URL, $url);
-    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    //     curl_setopt($ch, CURLOPT_POST, 1);
-    //     curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
-    //     $output = curl_exec($ch);
-    //     curl_close($ch);
-    //     $data = json_decode($output, true);
-    //     return $data;
-    // }
     function getUserInfo($stuId) {
         $url = "http://hongyan.cqupt.edu.cn/stuface2017/index.php/weixin/index/getStuInfo?stunum=" . $stuId;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // curl_setopt($ch, CURLOPT_POST, 1);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS);
         $output = curl_exec($ch);
         curl_close($ch);
         $data = json_decode($output, true);
@@ -95,7 +77,7 @@ use app\index\model\Vote;
         // 投票日期
 
         $timeStart = mktime(23, 59, 59, 8, 9, 2017);
-        $timeend = mktime(23, 59, 59, 9, 8, 2017);
+        $timeend = mktime(23, 59, 59, 9, 10, 2017);
         
         if (time() > $timeend) {
             return json_encode([
