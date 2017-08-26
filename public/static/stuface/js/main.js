@@ -50,7 +50,7 @@ $('.search b').addEventListener('click', function() {
         success: function(res) {
             var status = parseInt(res.status);
             if (status === 200) {
-                $('.show-details').innerHTML = allImgView(res.data);
+                $('.show-details').innerHTML = allImgView([res.data]);
             } else if (status === 400) {
                 showModel('未找到该编号下的同学');
             }
