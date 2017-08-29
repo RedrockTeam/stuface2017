@@ -40,12 +40,24 @@ class Image extends Model
     public static function page($rank, $index, $sex) {
         $begin = ($index-1) * 12;
         if ($sex == '*') {
-            return db('image')->where('is_pass', 2)->order($rank)->limit($begin, 12)->select();
+            return db('image')
+                ->field('*, min(id)')
+                ->where('is_pass', 2)
+                ->group('uid')
+                ->order($rank)
+                ->limit($begin, 12)
+                ->select();
         }
-        return db('image')->where([
-            'is_pass' => 2,
-            'sex' => $sex
-        ])->order($rank)->limit($begin, 12)->select();
+        return db('image')
+            ->field('*, min(id)')
+            ->where([
+                'is_pass' => 2,
+                'sex' => $sex
+            ])
+            ->group('uid')
+            ->order($rank)
+            ->limit($begin, 12)
+            ->select();
     }
     public static function status($stuId) {
         return db('image')
