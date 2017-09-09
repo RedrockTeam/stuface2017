@@ -11,6 +11,7 @@ var type = 'comp';
 var message = $('.message');
 var cover = $('.cover');
 var second = $('.second');
+var award = $('.award');
 var success = $('.success');
 var choose_info = false,
     stuPassword = localStorage.stuPassword,
@@ -23,6 +24,30 @@ var choose_info = false,
 var publicDir = '/stuface2017/public'
 var urlPrefix = `/stuface2017/index.php/index/index`
 
+var expireText = '本次活动已结束，获奖信息请查看右上角信息提示或关注重邮小帮手查看获奖推送！谢谢';
+var awardText = function (name, rank) {
+    return '<span class="hl">' + name + '</span> 您好：恭喜您在新生笑脸活动中排名第 <span class="hl">' + rank + '</span> 名，请于9月16日-9月20日在太极操场西六门三楼左侧红岩网校工作站领取奖品！';
+}
+var noAWardText = '很遗憾，您未获奖，但是不要灰心！在后面我们为鲜肉们准备了更多精彩的活动！敬请留意哦！';
+
+function showExpireText() {
+    award.style.display = 'block';
+    document.querySelector('.award-msg').innerHTML = expireText
+}
+
+function showAwardInfo(name, rank) {
+    award.style.display = 'block';
+    document.querySelector('.award-msg').innerHTML = rank===-1 ? noAWardText : awardText(name, rank);
+}
+
+award.addEventListener('click', function(e) {
+    if (e.target == e.currentTarget) {
+        e.currentTarget.style.display = 'none';
+    }
+})
+$('.award .close').addEventListener('click', function(e) {
+    award.style.display = 'none';
+})
 //自动登录
 ajax({
     method: 'post',
@@ -33,10 +58,19 @@ ajax({
     },
     success: function(res){
         console.log(res)
+        sessionStorage.userInfo = JSON.stringify(res.data[0]);
     }
 })
 //消息显示
 message.addEventListener('click',function() {
+    var now = Date.now();
+    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+
+    if (now >= expireDate) {
+        var data = JSON.parse(sessionStorage.userInfo);
+        return showAwardInfo(data.stu_name, data.rank);
+    }
+
     if (!/^2017/.test(stuId)) {
         cover.style.display = 'block';
         success.style.display = 'block';
@@ -150,18 +184,36 @@ $('.cover').addEventListener('click', e => {
         $('.container').removeChild($('.show_more'));
     }
 });
-$('.close').addEventListener('click',function() {
+$('.close')[1].addEventListener('click',function() {
     $('.cover').style.display = 'none';
     $('.success').style.display = 'none';
     $('.absolute').style.display = 'none';
     second.style.display = 'none';
 })
+$('.upload-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var now = Date.now();
+    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
 
+    if (now >= expireDate) {
+        var data = JSON.parse(sessionStorage.userInfo);
+        return showExpireText(data.stu_name, data.rank);
+    }
+    location.href = e.currentTarget.href;
+})
 //投票&&预览
 list.addEventListener('click',function(e) {
     var target;
     if(e.target.className == 'zan') {
-        target = e.target;            
+        var now = Date.now();
+        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+
+        if (now >= expireDate) {
+            var data = JSON.parse(sessionStorage.userInfo);
+            return showExpireText(data.stu_name, data.rank);
+        }
+
+        target = e.target;
         ajax({
             method: 'get',
             url:  urlPrefix + '/vote/stuId/'+ stuId +'/voteId/' +target.name,
@@ -193,6 +245,13 @@ list.addEventListener('click',function(e) {
         //预览投票
 
         $('.zan_big').addEventListener('click',function() {
+            var now = Date.now();
+            var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+
+            if (now >= expireDate) {
+                var data = JSON.parse(sessionStorage.userInfo);
+                return showExpireText(data.stu_name, data.rank);
+            }
             ajax({
                 method: 'get',
                 url:  urlPrefix + '/vote/stuId/'+ stuId +'/voteId/' +$('.zan_big').name,

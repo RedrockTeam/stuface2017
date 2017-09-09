@@ -1,4 +1,9 @@
+var now = Date.now();
+var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
 
+if (now >= expireDate) {
+    location.href = 'http://localhost/redrock/stuface/index.php/weixin/index/stufacemo'
+}
 var add = $('.add'),
     p_form = $('.p_form'),
     button = $('.button'),

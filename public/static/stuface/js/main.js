@@ -5,11 +5,21 @@ var rankToSort = 'comp',
     nowPage = 1;
 
 // 本地 本地只需改这个参数
-// var publicDir = '/redrock/stuface/public'
+// var publicDir = '/redrock/stuface'
 // var urlPrefix = `/redrock/stuface/index.php/index/index`
 // 线上
 var publicDir = '/stuface2017/public'
 var urlPrefix = `/stuface2017/index.php/index/index`
+
+var expireText = '本次活动已结束，获奖信息请查看右上角信息提示或关注重邮小帮手查看获奖推送！谢谢';
+var awardText = function (name, rank) {
+    return '<span class="hl">' + name + '</span> 您好：恭喜您在新生笑脸活动中排名第 <span class="hl">' + rank + '</span> 名，请于9月16日-9月20日在太极操场西六门三楼左侧红岩网校工作站领取奖品！';
+}
+var noAWardText = '很遗憾，您未获奖，但是不要灰心！在后面我们为鲜肉们准备了更多精彩的活动！敬请留意哦！';
+
+function showAwardInfo(name, rank) {
+    return rank===-1 ? noAWardText : awardText(name, rank);
+}
 
 function checkLogin() {
     if (sessionStorage.stuid) {
@@ -61,32 +71,40 @@ $('.search b').addEventListener('click', function() {
 //有新消息
 $('.title-last').addEventListener('click', function() {
     if ($('.title-last').classList.contains('my-info-active')) {
-        Ajax({
-            method: 'GET',
-            url: `${urlPrefix}/getStatus/stuId/${sessionStorage.stuid}`,
-            success: function(res) {
-                var status = parseInt(res.status);
-                $('.info-view').style.display = 'block';
-                $('.info-view').querySelector('.login-form').style.height = '216px';
-                if (status === 200) {
-                    if (res.data == 2) {
-                        $('.message').innerHTML = '您的照片已审核通过，可在首页查看哦';
-                        $('.again-upload').style.display = 'none';
-                    } else if (res.data == 0) {
-                        $('.message').innerHTML = '您未上传照片哦';
-                        $('.info-view').querySelector('.login-form').style.height = '300px';
-                    } else if (res.data == 1) {
-                        $('.message').innerHTML = '您上传的照片正在审核中哦，请耐心等待';
-                        $('.again-upload').style.display = 'none';
+        var now = Date.now();
+        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+
+        if (now >= expireDate) {
+            var data = JSON.parse(sessionStorage.userInfo);
+            showModel(showAwardInfo(data.stu_name, data.rank));
+        } else {
+            Ajax({
+                method: 'GET',
+                url: `${urlPrefix}/getStatus/stuId/${sessionStorage.stuid}`,
+                success: function(res) {
+                    var status = parseInt(res.status);
+                    $('.info-view').style.display = 'block';
+                    $('.info-view').querySelector('.login-form').style.height = '216px';
+                    if (status === 200) {
+                        if (res.data == 2) {
+                            $('.message').innerHTML = '您的照片已审核通过，可在首页查看哦';
+                            $('.again-upload').style.display = 'none';
+                        } else if (res.data == 0) {
+                            $('.message').innerHTML = '您未上传照片哦';
+                            $('.info-view').querySelector('.login-form').style.height = '300px';
+                        } else if (res.data == 1) {
+                            $('.message').innerHTML = '您上传的照片正在审核中哦，请耐心等待';
+                            $('.again-upload').style.display = 'none';
+                        } else {
+                            $('.message').innerHTML = '您参与的新生笑脸——晒晒录取通知书活动由于 <span class="highlight">未审核或者审核未通过</span> ，所以不能将您的照片上传到首页进行展示哦。'
+                            $('.info-view').querySelector('.login-form').style.height = '300px';
+                        }
                     } else {
-                        $('.message').innerHTML = '您参与的新生笑脸——晒晒录取通知书活动由于 <span class="highlight">未审核或者审核未通过</span> ，所以不能将您的照片上传到首页进行展示哦。'
-                        $('.info-view').querySelector('.login-form').style.height = '300px';
+                        showModel(res.info);
                     }
-                } else {
-                    showModel(res.info);
                 }
-            }
-        });
+            });
+        }
     }
 });
 
@@ -131,6 +149,16 @@ Ajax({
 var allBtnUpload = [].slice.call($('.btn-uplaod'));
 allBtnUpload.forEach( function(element, index) {
     element.addEventListener('click', function() {
+        var now = Date.now();
+        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+
+        if (now >= expireDate) {
+            $('.model-view').querySelector('.model-text').classList.add('award-info');
+            showModel(expireText);
+            return;
+        }
+
+        $('.model-view').querySelector('.model-text').classList.remove('award-info');
         if (!sessionStorage.stuid) {
             return showModel('你还未登录哦');
         }
@@ -211,22 +239,6 @@ $('.upload-btn').addEventListener('click', function() {
 
 //选中元素出现红边框
 var imgParent = $('.show-details');
-// imgParent.addEventListener('click', function(e) {
-//     var target = e.target;
-//     if(target && target.getAttribute('class') === "show-face") {
-//         var allimgs = [].slice.call($('.show-img') || []);
-//         allimgs.forEach(function(element, index) {
-//             element.classList.remove('show-img-active');
-//         });
-//         [$('.sex span'), $('.show-style span')].forEach(function(element, index) {
-//             element.classList.remove('arrow-up');            
-//             element.classList.add('arrow-down');
-//             element.parentElement.parentElement.classList.remove('show-img-active', 'select-more');
-//         });
-//         $('.input-num').parentElement.classList.remove('show-img-active');
-//         target.parentElement.classList.add('show-img-active');
-//     }
-// });
 
 // 输入编号focus 
 $('.input-num').addEventListener('click', function() {
@@ -289,14 +301,28 @@ $('.login-btn').addEventListener('click', function() {
             url: `${urlPrefix}/login`,
             content: `stuId=${stuid}&stuPassword=${stupassword}`,
             success: function (res) {
-                var status = parseInt(res.status);
-                if (status === 200) {
-                    showModel('登陆成功!');
+                if (parseInt(res.status) === 200) {
+                    var now = Date.now();
+                    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+                    
+                    // 显示获奖信息
+                    if (now >= expireDate) {
+                        var data = res.data[0];
+                        var rank = data.rank;
+                        $('.model-view').querySelector('.model-text').classList.add('award-info');
+                        if (data.rank !== -1) {
+                            showModel(showAwardInfo(data.stu_name, data.rank));
+                        }
+                    } else {
+                        showModel('登录成功');
+                    }
+                    
                     $('.login-view').style.display = "none";
                     $('.log-out').style.display = "block";
                     sessionStorage.stuid = stuid;
                     if (res.data) {
                         sessionStorage.sex = res.data[0].sex;
+                        sessionStorage.userInfo = JSON.stringify(res.data[0]);
                     }
                     $('.title-last').classList.remove('login-in');
                     $('.title-last').classList.add('my-info-active');
@@ -376,6 +402,12 @@ $('.hand-left').addEventListener('click', function() {
 });
 //点开大图后投票
 $('.big-pic-vote').addEventListener('click', function() {
+    var now = Date.now();
+    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+    if (now >= expireDate) {
+        $('.model-view').querySelector('.model-text').classList.add('award-info');
+        return showModel(expireText);
+    }
     if (checkLogin()) {
         var clickedImgUid = parseInt($('.big-pic-vote').parentElement.parentElement.parentElement.firstElementChild.getAttribute('alt'));
         var stuid = sessionStorage.stuid;
@@ -400,6 +432,13 @@ $('.show-details').addEventListener('click', function(e) {
     var ele = e.target;
     //投票
     if(ele.classList.contains('love') || ele.parentElement.classList.contains('love')) {
+        var now = Date.now();
+        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+
+        if (now >= expireDate) {
+            $('.model-view').querySelector('.model-text').classList.add('award-info');
+            return showModel(expireText);
+        }
         if (checkLogin()) {
             var clickedImgUid = parseInt(ele.parentElement.parentElement.parentElement.querySelector('.show-face').getAttribute('alt'));
             var stuid = sessionStorage.stuid;
@@ -408,6 +447,7 @@ $('.show-details').addEventListener('click', function(e) {
                 url: `${urlPrefix}/vote/stuId/${stuid}/voteId/${clickedImgUid}`,
                 success: function(res) {
                     var status = parseInt(res.status);
+                    $('.model-view').querySelector('.model-text').classList.remove('award-info');
                     if (status === 200) {
                         ele.nextElementSibling.innerText = parseInt(ele.nextElementSibling.innerText)+1;
                         showModel('投票成功! 您还有 <span class="color-red">' + res.data + '</span> 次投票机会哟～');

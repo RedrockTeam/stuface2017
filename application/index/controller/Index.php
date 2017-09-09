@@ -112,23 +112,7 @@ class Index extends Controller
     public function login() {
         $request = Request::instance();
 
-        // if(!$request->isAjax()) {
-        //     return json_encode([
-        //          'code' => 400,
-        //          'status' => 'Ajax only'
-        //      ]);
-        // }
-
         $stuId = $request->param()['stuId'];
-
-        // if (!preg_match('/2017/', $stuId)) {
-        //     return json_encode([
-        //         'status' => 400,
-        //         'data' => null,
-        //         'info' => '你不是新生哦'
-        //     ]);
-        // }
-
 
         $stuPassword = $request->param()['stuPassword'];
         // 如果该学生未在数据库中，则从API登录，并存数据库
@@ -174,7 +158,7 @@ class Index extends Controller
                 'info' => '你不是新生哦'
             ]);
         }
-        
+    
         if (!User::check($stuId)) {
             $user = getUserInfo($stuId)['data'];
             User::insert($stuId, $user['idNum'], $user['name'], $user['gender']);
@@ -196,6 +180,7 @@ class Index extends Controller
                 'info' => '图片太大，限制5M'
             ]);
         }
+
 
         $uploadInfo['uid'] = $stuId;
         $uploadInfo['big_pic'] = $uploadRes['big_pic'];

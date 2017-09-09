@@ -445,3 +445,43 @@ ul {
 .clean {
     clear: both
 }
+.award {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .7);
+    z-index: 1000;
+    font-size: .4rem;
+    color: #666;
+}
+.award .close {
+    position: absolute;
+    right: .1rem;
+    top: .1rem;
+    width: .51666667rem;
+    height: .51666667rem;
+}
+.award-con {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 5.33333333rem;
+    height: 3rem;
+    background-color: #fffcf0;
+}
+.award-msg {
+    margin-top: .6rem;
+    padding: 0 .32rem;
+    font-size: .32rem;
+}
+.hl {
+    color: #FFAA15;
+    font-size: .4rem;
+}
+

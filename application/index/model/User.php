@@ -12,6 +12,21 @@ class User extends Model
     }
     public static function doLogin($stuId, $stuPassword) {
         $user = db('user')->where('uid', $stuId)->select();
+        $images = db('image')
+            ->field('*, min(id)')
+            ->where('is_pass', 2)
+            ->group('uid')
+            ->order('vote desc')
+            ->select();
+
+        $rank = -1;
+        foreach ($images as $index => $userImage) {
+            if ($stuId == $userImage['uid']) {
+                $rank = $index >= 50 ? -1 : $index+1;
+                break;
+            }
+        }
+        $user[0]['rank'] = $rank;
         if ($user && $stuPassword == $user[0]['password']) {
             return $user;
         }
