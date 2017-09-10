@@ -464,6 +464,10 @@ ul {
     width: .41666667rem;
     height: .41666667rem;
 }
+.award .close img  {
+    width: .41666667rem;
+    height: .41666667rem;
+}
 .award-con {
     position: absolute;
     top: 0;
