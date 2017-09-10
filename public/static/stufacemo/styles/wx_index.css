@@ -459,10 +459,10 @@ ul {
 }
 .award .close {
     position: absolute;
-    right: .1rem;
-    top: .1rem;
-    width: .51666667rem;
-    height: .51666667rem;
+    right: .15rem;
+    top: .12rem;
+    width: .41666667rem;
+    height: .41666667rem;
 }
 .award-con {
     position: absolute;
