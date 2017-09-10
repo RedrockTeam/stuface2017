@@ -290,7 +290,7 @@ $('.search_button').addEventListener('click',function() {
                 list.innerHTML = '';
                 var liParent = document.createElement('li');
                 liParent.className = 'show';
-                var li = '<span class="rank">No'+ res.data.id +'</span><img class="person" src="'+ publicDir +'/uploads/'+res.data.pic+'" alt=""><p class="other"><img class="zan" name="'+ res.data.uid  +'" src="' + publicDir + '/static/stufacemo/imgs/zan1.png" alt=""><span class="zan-num">'+ res.data.vote +'</span><img class="more" src="' + publicDir + '/static/stufacemo/imgs/more.png" alt="0"></p>';
+                var li = '<span class="rank">No'+ res.data.id +'</span><img class="person" src="'+ publicDir +'/uploads/' +res.data.pic+'" alt="'+ res.data.vote +'" big_pic=' + res.data.big_pic + ' id=' + res.data.id + ' uid=' + res.data.uid +'><p class="other"><img class="zan" name="'+ res.data.uid  +'" src="' + publicDir + '/static/stufacemo/imgs/zan1.png" alt=""><span class="zan-num">'+ res.data.vote +'</span><img class="more" src="' + publicDir + '/static/stufacemo/imgs/more.png" alt="0"></p>';
                 liParent.innerHTML = li;
                 list.appendChild(liParent);
                 data_arr = new Array(res.data);
@@ -303,6 +303,7 @@ $('.search_button').addEventListener('click',function() {
 function show_pic(res) {
     list.innerHTML = '';
     data_arr = res.data;
+	console.log(data_arr)
     for(var i = 0; i < res.data.length; i++) {
         var liParent = document.createElement('li');
         liParent.className = 'show';
