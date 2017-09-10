@@ -20,6 +20,7 @@ class Index extends Controller
      */
     public function stufacemo()
     {
+	header('Cache-Control:no-cache');
         $code = getParameter("code");
         if (!is_null($code)) {
             $url = "https://api.weixin.qq.com/sns/oauth2/access_token?" .

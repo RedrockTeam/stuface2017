@@ -64,14 +64,16 @@ ajax({
 })
 //消息显示
 message.addEventListener('click',function() {
-    var now = Date.now();
-    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
+    var now = new Date();
+    var expireDate = new Date('2017/9/10 12:00:00'); // 截止日期
 
-    if (now >= expireDate) {
+//	window.alert(now + '' + expireDate)
+    //if (now >= expireDate) {
         var data = JSON.parse(sessionStorage.userInfo);
-        return showAwardInfo(data.stu_name, data.rank);
-    }
 
+        showAwardInfo(data.stu_name, data.rank);
+    	return;
+//	}
     if (!/^2017/.test(stuId)) {
         cover.style.display = 'block';
         success.style.display = 'block';
@@ -193,26 +195,26 @@ $('.close')[1].addEventListener('click',function() {
 })
 $('.upload-btn').addEventListener('click', function(e) {
     e.preventDefault();
-    var now = Date.now();
+    var now = new Date().getTime();
     var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
 
-    if (now >= expireDate) {
+    //if (now >= expireDate) {
         var data = JSON.parse(sessionStorage.userInfo);
         return showExpireText(data.stu_name, data.rank);
-    }
+    //}
     location.href = e.currentTarget.href;
 })
 //投票&&预览
 list.addEventListener('click',function(e) {
     var target;
     if(e.target.className == 'zan') {
-        var now = Date.now();
+        var now = new Date().getTime();
         var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
 
-        if (now >= expireDate) {
+       // if (now >= expireDate) {
             var data = JSON.parse(sessionStorage.userInfo);
             return showExpireText(data.stu_name, data.rank);
-        }
+        //}
 
         target = e.target;
         ajax({
@@ -246,13 +248,13 @@ list.addEventListener('click',function(e) {
         //预览投票
 
         $('.zan_big').addEventListener('click',function() {
-            var now = Date.now();
+            var now = new Date().getTime();
             var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
 
-            if (now >= expireDate) {
+            //if (now >= expireDate) {
                 var data = JSON.parse(sessionStorage.userInfo);
                 return showExpireText(data.stu_name, data.rank);
-            }
+           //}
             ajax({
                 method: 'get',
                 url:  urlPrefix + '/vote/stuId/'+ stuId +'/voteId/' +$('.zan_big').name,
