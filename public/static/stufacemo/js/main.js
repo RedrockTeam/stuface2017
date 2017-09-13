@@ -191,7 +191,12 @@ $('.close')[1].addEventListener('click',function() {
 })
 $('.upload-btn').addEventListener('click', function(e) {
     e.preventDefault();
-
+    if (!/^2017/.test(localStorage.stuId)) {
+        cover.style.display = 'block';
+        success.style.display = 'block';
+        success.children[1].innerHTML = '你不是新生!';
+        return;
+    }
     if (now >= expireDate) {
         var data = JSON.parse(sessionStorage.userInfo);
         return showExpireText(data.stu_name, data.rank);
