@@ -238,7 +238,7 @@ ul {
     background-color: #fffcf0;
     margin-top: .53333333rem;
     width: 8.28rem;
-    height: 4.41333333rem;
+    height: 7.61333333rem;
     border: .01333333rem solid #821515;
     border-radius: .13333333rem;
     padding: .53333333rem .33333333rem 0
@@ -488,4 +488,9 @@ ul {
     color: #FFAA15;
     font-size: .4rem;
 }
-
+.footer {
+    margin-bottom: .2rem;
+    text-align: center;
+    font-size: .32rem;
+    color: #666;
+}

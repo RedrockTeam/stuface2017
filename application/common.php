@@ -73,7 +73,7 @@ use app\index\model\Vote;
     }
 
     function vote() {
-        $voteTimes = 8;
+        $voteTimes = 1;
         // 投票截止日期
         $timeend = mktime(23, 59, 59, 9, 15, 2017);
         
@@ -104,7 +104,7 @@ use app\index\model\Vote;
             return json_encode([
                 'status' => 402,
                 'data' => 0,
-                'info' => '你今天的投票次数已用完哦'
+                'info' => '你今天已经投过票哦'
             ]);
         }
 
