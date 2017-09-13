@@ -5,7 +5,7 @@ var rankToSort = 'comp',
     nowPage = 1;
 
 // 本地 本地只需改这个参数
-// var publicDir = '/redrock/stuface'
+// var publicDir = '/redrock/stuface/public'
 // var urlPrefix = `/redrock/stuface/index.php/index/index`
 // 线上
 var publicDir = '/stuface2017/public'
@@ -16,6 +16,9 @@ var awardText = function (name, rank) {
     return '<span class="hl">' + name + '</span> 您好：恭喜您在新生笑脸活动中排名第 <span class="hl">' + rank + '</span> 名，请于9月16日-9月20日在太极操场西六门三楼左侧红岩网校工作站领取奖品！';
 }
 var noAWardText = '很遗憾，您未获奖，但是不要灰心！在后面我们为鲜肉们准备了更多精彩的活动！敬请留意哦！';
+
+var now = Date.now();
+var expireDate = new Date('2017/9/15 23:59:59').getTime(); // 投票截止日期
 
 function showAwardInfo(name, rank) {
     return rank===-1 ? noAWardText : awardText(name, rank);
@@ -71,9 +74,6 @@ $('.search b').addEventListener('click', function() {
 //有新消息
 $('.title-last').addEventListener('click', function() {
     if ($('.title-last').classList.contains('my-info-active')) {
-        var now = Date.now();
-        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
-
         if (now >= expireDate) {
             var data = JSON.parse(sessionStorage.userInfo);
             showModel(showAwardInfo(data.stu_name, data.rank));
@@ -149,13 +149,9 @@ Ajax({
 var allBtnUpload = [].slice.call($('.btn-uplaod'));
 allBtnUpload.forEach( function(element, index) {
     element.addEventListener('click', function() {
-        var now = Date.now();
-        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
-
         if (now >= expireDate) {
             $('.model-view').querySelector('.model-text').classList.add('award-info');
-            showModel(expireText);
-            return;
+            return showModel(expireText);
         }
 
         $('.model-view').querySelector('.model-text').classList.remove('award-info');
@@ -302,9 +298,6 @@ $('.login-btn').addEventListener('click', function() {
             content: `stuId=${stuid}&stuPassword=${stupassword}`,
             success: function (res) {
                 if (parseInt(res.status) === 200) {
-                    var now = Date.now();
-                    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
-                    
                     // 显示获奖信息
                     if (now >= expireDate) {
                         var data = res.data[0];
@@ -402,8 +395,6 @@ $('.hand-left').addEventListener('click', function() {
 });
 //点开大图后投票
 $('.big-pic-vote').addEventListener('click', function() {
-    var now = Date.now();
-    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
     if (now >= expireDate) {
         $('.model-view').querySelector('.model-text').classList.add('award-info');
         return showModel(expireText);
@@ -432,9 +423,6 @@ $('.show-details').addEventListener('click', function(e) {
     var ele = e.target;
     //投票
     if(ele.classList.contains('love') || ele.parentElement.classList.contains('love')) {
-        var now = Date.now();
-        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
-
         if (now >= expireDate) {
             $('.model-view').querySelector('.model-text').classList.add('award-info');
             return showModel(expireText);

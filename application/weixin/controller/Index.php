@@ -20,43 +20,42 @@ class Index extends Controller
      */
     public function stufacemo()
     {
-	header('Cache-Control:no-cache');
-        $code = getParameter("code");
-        if (!is_null($code)) {
-            $url = "https://api.weixin.qq.com/sns/oauth2/access_token?" .
-                "appid={$this->appId}" .
-                "&secret={$this->appSecret}" .
-                "&code={$code}" .
-                "&grant_type=authorization_code";
-            $json = getCurlContent($url);
-            $data = json_decode($json, true);
-            if(isset($data['openid'])) {
-                $openId = $data['openid'];
-                $array = array("openid" => $openId, "bind"=>1);
-                $stu =  db('student')->where($array)->find();
-                  if (empty($stu) || is_null($stu)) {
-                      //请先绑定小帮手
-                      return $this->redirect("http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Bind/Bind/bind/openid/{$openId}/token/gh_68f0a1ffc303");
-                  }
-                $this->assign("idnum", $stu['idcard']);
-                $this->assign('student', $stu['stuId']); 
-                $this->assign('openid', $openId);
-                return $this->fetch();
-           }
-        } 
-        $context = "http://hongyan.cqupt.edu.cn/stuface2017/index.php/weixin/index/stufacemo";
-            $url = $context;
-            $redirect = "https://open.weixin.qq.com/connect/oauth2/authorize?".
-                        "appid={$this->appId}&".
-                        "redirect_uri={$url}&".
-                        "response_type=code&".
-                        "scope=snsapi_userinfo&".
-                        "state=fuckweixin#wechat_redirect";
-            return $this->redirect($redirect);
+        // $code = getParameter("code");
+        // if (!is_null($code)) {
+        //     $url = "https://api.weixin.qq.com/sns/oauth2/access_token?" .
+        //         "appid={$this->appId}" .
+        //         "&secret={$this->appSecret}" .
+        //         "&code={$code}" .
+        //         "&grant_type=authorization_code";
+        //     $json = getCurlContent($url);
+        //     $data = json_decode($json, true);
+        //     if(isset($data['openid'])) {
+        //         $openId = $data['openid'];
+        //         $array = array("openid" => $openId, "bind"=>1);
+        //         $stu =  db('student')->where($array)->find();
+        //           if (empty($stu) || is_null($stu)) {
+        //               //请先绑定小帮手
+        //               return $this->redirect("http://hongyan.cqupt.edu.cn/MagicLoop/index.php?s=/addon/Bind/Bind/bind/openid/{$openId}/token/gh_68f0a1ffc303");
+        //           }
+        //         $this->assign("idnum", $stu['idcard']);
+        //         $this->assign('student', $stu['stuId']); 
+        //         $this->assign('openid', $openId);
+        //         return $this->fetch();
+        //    }
+        // } 
+        // $context = "http://hongyan.cqupt.edu.cn/stuface2017/index.php/weixin/index/stufacemo";
+        //     $url = $context;
+        //     $redirect = "https://open.weixin.qq.com/connect/oauth2/authorize?".
+        //                 "appid={$this->appId}&".
+        //                 "redirect_uri={$url}&".
+        //                 "response_type=code&".
+        //                 "scope=snsapi_userinfo&".
+        //                 "state=fuckweixin#wechat_redirect";
+        //     return $this->redirect($redirect);
 
-        // $this->assign("idnum", '024914');
-        // $this->assign('student', '2015211878'); 
-        // return $this->fetch();
+        $this->assign("idnum", '024914');
+        $this->assign('student', '2015211878'); 
+        return $this->fetch();
     }
 
     public function stufacemo_upload() {

@@ -35,6 +35,8 @@ function showExpireText() {
     award.style.display = 'block';
     document.querySelector('.award-msg').innerHTML = expireText
 }
+var now = Date.now();
+var expireDate = new Date('2017/9/15 23:59:59').getTime(); // 投票截止日期
 
 function showAwardInfo(name, rank) {
     award.style.display = 'block';
@@ -58,22 +60,16 @@ ajax({
         stuPassword: stuPassword
     },
     success: function(res){
-        console.log(res)
         sessionStorage.userInfo = JSON.stringify(res.data[0]);
     }
 })
 //消息显示
 message.addEventListener('click',function() {
-    var now = new Date();
-    var expireDate = new Date('2017/9/10 12:00:00'); // 截止日期
-
-//	window.alert(now + '' + expireDate)
-    //if (now >= expireDate) {
+    if (now >= expireDate) {
         var data = JSON.parse(sessionStorage.userInfo);
+        return showAwardInfo(data.stu_name, data.rank);
+    }
 
-        showAwardInfo(data.stu_name, data.rank);
-    	return;
-//	}
     if (!/^2017/.test(stuId)) {
         cover.style.display = 'block';
         success.style.display = 'block';
@@ -195,26 +191,21 @@ $('.close')[1].addEventListener('click',function() {
 })
 $('.upload-btn').addEventListener('click', function(e) {
     e.preventDefault();
-    var now = new Date().getTime();
-    var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
 
-    //if (now >= expireDate) {
+    if (now >= expireDate) {
         var data = JSON.parse(sessionStorage.userInfo);
         return showExpireText(data.stu_name, data.rank);
-    //}
+    }
     location.href = e.currentTarget.href;
 })
 //投票&&预览
 list.addEventListener('click',function(e) {
     var target;
     if(e.target.className == 'zan') {
-        var now = new Date().getTime();
-        var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
-
-       // if (now >= expireDate) {
+        if (now >= expireDate) {
             var data = JSON.parse(sessionStorage.userInfo);
             return showExpireText(data.stu_name, data.rank);
-        //}
+        }
 
         target = e.target;
         ajax({
@@ -227,7 +218,6 @@ list.addEventListener('click',function(e) {
                     target.nextSibling.innerHTML = num + 1;
                     $('.success').style.display = 'block';
                     $('.success').children[1].innerHTML = '投票成功! 您还有 <span class="vote_num">'+ res.data +'</span> 次投票机会哟～';
-                    //console.log(res)
                 } else {
                     $('.success').style.display = 'block';
                     $('.success').children[1].innerHTML = res.info;
@@ -237,7 +227,6 @@ list.addEventListener('click',function(e) {
     } else if(e.target.className == 'more' || e.target.className == 'person') {
         target = e.target;
         var img_data = target.parentNode.parentNode.querySelector('.person');
-        console.log(img_data)
         cover.style.display = 'block';
         document.body.style.overflow = 'hidden';
         var yulan = '<img class="big_person" src=' + publicDir + '/uploads/' +img_data.getAttribute('big_pic')+' alt=""><p class="other"><span class="all">编号<span class="number">'+img_data.getAttribute('id')+'</span></span><span class="zan_num_big">'+img_data.alt+'</span><img class="zan_big" name="'+ img_data.getAttribute('uid') +'" src="' + publicDir + '/static/stufacemo/imgs/zan1.png" alt=""></p>';
@@ -248,13 +237,10 @@ list.addEventListener('click',function(e) {
         //预览投票
 
         $('.zan_big').addEventListener('click',function() {
-            var now = new Date().getTime();
-            var expireDate = new Date('2017-9-10 12:00:00').getTime(); // 截止日期
-
-            //if (now >= expireDate) {
+            if (now >= expireDate) {
                 var data = JSON.parse(sessionStorage.userInfo);
                 return showExpireText(data.stu_name, data.rank);
-           //}
+            }
             ajax({
                 method: 'get',
                 url:  urlPrefix + '/vote/stuId/'+ stuId +'/voteId/' +$('.zan_big').name,
@@ -264,7 +250,6 @@ list.addEventListener('click',function(e) {
                         $('.success').style.display = 'block';
                         // $('.vote_num').innerHTML = res.data;
                         $('.success').children[1].innerHTML = '投票成功! 您还有 <span class="vote_num">'+ res.data +'</span> 次投票机会哟～';
-                        console.log(res)
                     } else {
                         $('.success').style.display = 'block';
                         $('.success').children[1].innerHTML = res.info;
@@ -306,7 +291,6 @@ $('.search_button').addEventListener('click',function() {
 function show_pic(res) {
     list.innerHTML = '';
     data_arr = res.data;
-	console.log(data_arr)
     for(var i = 0; i < res.data.length; i++) {
         var liParent = document.createElement('li');
         liParent.className = 'show';

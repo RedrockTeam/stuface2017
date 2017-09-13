@@ -158,7 +158,16 @@ class Index extends Controller
                 'info' => '你不是新生哦'
             ]);
         }
-    
+        $now = time();
+        $timeend = mktime(23, 59, 59, 9, 15, 2017);
+        if ($now >= $timeend) {
+            return json_encode([
+                'status' => -400,
+                'data' => null,
+                'info' => '上传时间已过'
+            ]);
+        }
+
         if (!User::check($stuId)) {
             $user = getUserInfo($stuId)['data'];
             User::insert($stuId, $user['idNum'], $user['name'], $user['gender']);
@@ -180,7 +189,6 @@ class Index extends Controller
                 'info' => '图片太大，限制5M'
             ]);
         }
-
 
         $uploadInfo['uid'] = $stuId;
         $uploadInfo['big_pic'] = $uploadRes['big_pic'];

@@ -74,10 +74,8 @@ use app\index\model\Vote;
 
     function vote() {
         $voteTimes = 8;
-        // 投票日期
-
-        $timeStart = mktime(23, 59, 59, 8, 9, 2017);
-        $timeend = mktime(23, 59, 59, 9, 10, 2017);
+        // 投票截止日期
+        $timeend = mktime(23, 59, 59, 9, 15, 2017);
         
         if (time() > $timeend) {
             return json_encode([
