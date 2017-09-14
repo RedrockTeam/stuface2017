@@ -28,25 +28,28 @@ use app\index\model\Vote;
 
         // 保存大图，成功则压缩并保存
         $info = $file->validate([
-            'size'=> 5 * 1024 * 1024,
+            'size'=> 25 * 1024 * 1024,
             'ext'=>'jpg,png,gif,jpeg'
         ])->move($dirname, $filename);
-        
-        if ($info) {
-            // 成功上传
-            $compressFilePath = compressImg($filepath);
-            return [
-                'status' => 200,
-                'big_pic' => date('Ymd') . '/' . $filename,
-                'pic' => date('Ymd') . '/' . preg_replace('/_big/', '', $filename),
-            ];
-        } else {
-            // 上传失败获取错误信息
-            return [
-                'status' => 401,
-                'info' => $file->getError()
-            ];
-        }
+
+        compressImg($filepath);
+        // 成功上传
+        thumbImg($filepath);
+        return [
+            'status' => 200,
+            'big_pic' => date('Ymd') . '/' . $filename,
+            'pic' => date('Ymd') . '/' . preg_replace('/_big/', '', $filename),
+        ];
+    }
+
+    function  thumbImg($filepath) {
+        $image = \think\Image::open($filepath);
+
+        $compressFilePath = preg_replace('/_big/', '', $filepath);
+
+        // 按照原图的比例生成一个最大为300 * 300的缩略图并保存
+        $image->thumb(300, 300,\think\Image::THUMB_SCALING)->save($compressFilePath);
+        return $compressFilePath;
     }
 
     function compressImg($filepath) {
@@ -55,7 +58,7 @@ use app\index\model\Vote;
         $compressFilePath = preg_replace('/_big/', '', $filepath);
 
         // 按照原图的比例生成一个最大为300 * 300的缩略图并保存
-        $image->thumb(300, 300,\think\Image::THUMB_SCALING)->save($compressFilePath);
+        $image->thumb(1500, 1000,\think\Image::THUMB_SCALING)->save($filepath);
         return $compressFilePath;
     }
 
